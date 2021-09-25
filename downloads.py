@@ -1,6 +1,6 @@
 import requests
 from pathlib import Path
-
+import os.path
 
 
 BIG_NUMBER = int(10e100)
@@ -25,16 +25,20 @@ class EsriWorldStreetMap():
                 if break_y:
                     break_y = False
                     break
+                _path = '{path}/{z}/{y}/'.format(path=path,z=z,y=y)
+                Path(_path).mkdir(parents=True, exist_ok=True)
                 for x in range(self.max_x):
-                    if index % 20 and index != _index :
+                    if index != _index :
                         _index = index
                         print("{} images téléchargées".format(index),end="\r")
+                    file = "{}/{}.jpeg".format(_path, x)
+                    if os.path.isfile(file):
+                        index += 1
+                        continue
                     r = requests.get(self.url.format(z=z,y=y,x=x))
                     if (default != r.content):
                         index += 1
-                        _path = '{path}/{z}/{y}/'.format(path=path,z=z,y=y)
-                        Path(_path).mkdir(parents=True, exist_ok=True)
-                        with open("{}/{}.jpeg".format(_path, x), 'wb') as f:
+                        with open(file, 'wb') as f:
                             f.write(r.content)
                     else:
                         if x== 0 :
