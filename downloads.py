@@ -3,9 +3,9 @@ from pathlib import Path
 
 class EsriWorldStreetMap():
     url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}/'
-    max_z = 17
-    max_y= 10000
-    max_x = 10000
+    max_z = 10e100
+    max_y= 10e100
+    max_x = 10e100
     def download(self, path = "./download"):
         f_default = open("./assets/default.jpeg", "rb")
         default = f_default.read()
