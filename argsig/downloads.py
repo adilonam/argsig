@@ -25,13 +25,13 @@ class EsriWorldStreetMap():
                 if break_y:
                     break_y = False
                     break
-                _path = './{path}/{z}/{y}/'.format(path=path,z=z,y=y)
+                _path = '{path}/{z}/{y}/'.format(path=path,z=z,y=y)
                 Path(_path).mkdir(parents=True, exist_ok=True)
                 for x in range(self.max_x):
                     if index != _index :
                         _index = index
                         print("{} images téléchargées".format(index),end="\r")
-                    file = "./{}/{}.jpeg".format(_path, x)
+                    file = "{}/{}.jpeg".format(_path, x)
                     if os.path.isfile(file):
                         index += 1
                         continue
