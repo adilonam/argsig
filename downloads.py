@@ -1,7 +1,7 @@
 import requests
 from pathlib import Path
 import os.path
-
+from datetime import datetime
 
 BIG_NUMBER = int(10e100)
 
@@ -12,12 +12,13 @@ class EsriWorldStreetMap():
     max_x = BIG_NUMBER
     def download(self, path = "./download"):
         f_default = open("./assets/default.jpeg", "rb")
+        log = open("./assets/log.txt", "a")
         default = f_default.read()
         index = 0
         _index = 1
         break_y = False
         break_z = False
-        print("Begin")
+        log.write("[{}] Begin\n".format(datetime.now()))
         for z in range(self.max_z):
             if break_z:
                 break
@@ -30,7 +31,7 @@ class EsriWorldStreetMap():
                 for x in range(self.max_x):
                     if index != _index :
                         _index = index
-                        print("{} images téléchargées".format(index),end="\r")
+                        log.write("[{}] {} images téléchargées\n".format(datetime.now(), index))
                     file = "./{}/{}.jpeg".format(_path, x)
                     if os.path.isfile(file):
                         index += 1
@@ -47,7 +48,8 @@ class EsriWorldStreetMap():
                                 break_z = True
                         break
         f_default.close()
-        print("End")
+        log.close()
+        log.write("[{}] End\n".format(datetime.now()))
 
 
     
