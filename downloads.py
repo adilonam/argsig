@@ -49,7 +49,7 @@ class EsriWorldStreetMap():
         log.write("[{}] End\n".format(datetime.now()))
         log.close()
         
-    def specific(self, begin = (11.821210065250792, 4.958433331541971), end = (41.23902940678558, -18.295661311840025)):
+    def specific(self, begin = (10.756043395476832, 15.151256455158718), end = (47.10696511636121, -33.57353845655261)):
         max_z = BIG_NUMBER
         for z in range(max_z):
             img_begin = self.image_coordinate(*begin, z)
